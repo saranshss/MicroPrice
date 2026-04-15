@@ -201,25 +201,33 @@ class LOBSimulator:
             s.qa -= 1
             if s.qa == 0:
                 s.pa += self.tick_size
+                s.pb += self.tick_size
                 s.qa  = self._new_qty()
+                s.qb  = self._new_qty()
 
         elif event == EventType.MARKET_SELL:
             s.qb -= 1
             if s.qb == 0:
                 s.pb -= self.tick_size
+                s.pa -= self.tick_size
                 s.qb  = self._new_qty()
+                s.qa  = self._new_qty()
 
         elif event == EventType.CANCEL_ASK:
             s.qa -= 1
             if s.qa == 0:
                 s.pa += self.tick_size
+                s.pb += self.tick_size
                 s.qa  = self._new_qty()
+                s.qb  = self._new_qty()
 
         elif event == EventType.CANCEL_BID:
             s.qb -= 1
             if s.qb == 0:
                 s.pb -= self.tick_size
+                s.pa -= self.tick_size
                 s.qb  = self._new_qty()
+                s.qa  = self._new_qty()
 
     def _record(self, event: Optional[EventType]) -> None:
         """Append current state snapshot to internal history list."""
